@@ -1,7 +1,7 @@
 @font-face {
-    font-family:  "SourceHanSerifSC-VF.otf";
+    font-family: "LXGWWenKaiGBScreen";
     /* 使用相对路径来引用本地字体文件。 */
-    src: url('./SourceHanSerifSC-VF.otf') format('woff2');
+    src: url('./LXGWWenKaiGBScreen.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

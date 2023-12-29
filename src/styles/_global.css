@@ -3,7 +3,7 @@
 
 @font-face {
 	font-family: "LXGW WenKai";
-	src: url("/src/assets/fonts/LXGWWenKai-Regular.ttf") format("truetype");
+	src: url("/src/assets/fonts/LXGWWenKaiGBScreen") format("woff2");
 }
 
 :root {
