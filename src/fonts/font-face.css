@@ -1,0 +1,8 @@
+@font-face {
+    font-family:  "SourceHanSerifSC-VF.otf";
+    /* 使用相对路径来引用本地字体文件。 */
+    src: url('./SourceHanSerifSC-VF.otf') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
