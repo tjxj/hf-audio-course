@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.14.0",
+    "@astrojs/starlight-tailwind": "^2.0.1",
+    "@astrojs/tailwind": "^5.1.0",
     "astro": "^3.4.3",
+    "cn-fontsource-lxgw-wen-kai-screen-r": "^1.0.6",
     "sass": "^1.63.6",
-    "sharp": "^0.32.1"
+    "sharp": "^0.32.1",
+    "tailwindcss": "^3.4.0"
   }
 }

@@ -1,8 +1,0 @@
-@font-face {
-    font-family: "LXGWWenKaiGBScreen";
-    /* 使用相对路径来引用本地字体文件。 */
-    src: url('./LXGWWenKaiGBScreen.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
