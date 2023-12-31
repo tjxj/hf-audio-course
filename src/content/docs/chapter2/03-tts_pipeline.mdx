@@ -1,0 +1,84 @@
+---
+title: 使用管道生成音频
+description: Audio generation with a pipeline
+---
+
+音频生成包含了一系列涉及产生音频输出的任务。我们在这里将要关注的任务是语音生成（又称“文本到语音”）和音乐生成。在文本到语音中，模型将文本转换成逼真的口语声音，为应用程序如虚拟助手、视觉障碍人士的辅助工具和个性化有声读物等打开了大门。
+另一方面，音乐生成能够使创造性表达成为可能，并且主要在娱乐和游戏开发行业中找到其应用。
+
+在 🤗 Transformers 中，你会发现一个涵盖这两项任务的管道。这个管道被称为 `"text-to-audio"`，
+但为了方便起见，它还有一个 `"text-to-speech"` 的别名。在这里我们将使用两者，你可以自由选择哪个对你的任务更适用。
+
+让我们探索一下如何使用这个管道开始为文本生成音频旁白，以及只需几行代码就可以生成音乐。
+
+这个管道是 🤗 Transformers 的新功能，并且是作为版本 4.32 发布的一部分。因此，你需要将库升级到最新版本才能获得这个特性：
+
+```
+pip install --upgrade transformers
+```
+
+## 生成语音
+
+让我们开始探索文本到语音生成。首先，正如音频分类和自动语音识别的情况一样，我们需要定义管道。我们将定义一个文本到语音的管道，因为它最能描述我们的任务，并使用 [`suno/bark-small`](https://huggingface.co/suno/bark-small) 检查点：
+
+```python
+from transformers import pipeline
+
+pipe = pipeline("text-to-speech", model="suno/bark-small")
+```
+
+下一步就像通过管道传递一些文本一样简单。所有的预处理都将在幕后为我们完成：
+
+```python
+text = "瓢虫在文化和宗教中扮演了重要角色，与运气、爱情、生育和预言有关。"
+output = pipe(text)
+```
+
+在笔记本电脑上，我们可以使用以下代码片段来听到结果：
+
+```python
+from IPython.display import Audio
+
+Audio(output["audio"], rate=output["sampling_rate"])
+```
+
+我们正在使用的模型，Bark，实际上是多语言的，所以我们可以轻松地将初始文本替换为一段法语文本，并以完全相同的方式使用管道。它会自己识别语言：
+
+```python
+fr_text = "与普遍观点相反，瓢虫鞘翅上的点数并不对应其年龄，无论是以年数还是月数计。"
+output = pipe(fr_text)
+Audio(output["audio"], rate=output["sampling_rate"])
+```
+
+这个模型不仅是多语言的，它还能生成非语言交流和歌唱的音频。以下是让它唱歌的方法：
+
+```python
+song = "♪ 在丛林中，雄伟的丛林，有只瓢虫被看见。 ♪"
+output = pipe(song)
+Audio(output["audio"], rate=output["sampling_rate"])
+```
+
+我们将在后续专门针对文本到语音的单元中更深入地探讨 Bark 的具体情况，并且还会展示如何使用其他模型来完成这一任务。现在，让我们来生成一些音乐吧！
+
+## 生成音乐
+
+就像之前一样，我们将开始实例化一个管道。对于音乐生成，我们将定义一个文本到音频的管道，并用预训练好的检查点 [`facebook/musicgen-small`](https://huggingface.co/facebook/musicgen-small) 初始化它：
+
+```python
+music_pipe = pipeline("text-to-audio", model="facebook/musicgen-small")
+```
+
+让我们创建一个我们想要生成的音乐的文本描述：
+
+```python
+text = "90年代摇滚歌曲，带电吉他和重鼓"
+```
+
+我们可以通过向模型传递一个额外的 `max_new_tokens` 参数来控制生成输出的长度。
+
+```python
+forward_params = {"max_new_tokens": 512}
+
+output = music_pipe(text, forward_params=forward_params)
+Audio(output["audio"][0], rate=output["sampling_rate"])
+```

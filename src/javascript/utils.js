@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const word = document.querySelector("#changing_text");
-  const texts = ["InfoSec Professionals.", "Bug Bounty Hunters.", "Passionate Students.", "Spicy Hackers."];
+  const texts = ["自动语音识别.", "音频分类.", "文字生成语音."];
   let textIndex = 0;
 
   let isAnimating = false;
